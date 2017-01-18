@@ -12,4 +12,5 @@ public interface UserService {
     User edit(User u);
     User find(int id);
     List<User> findAll();
+    User findByUsername(String username);
 }

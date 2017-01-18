@@ -50,17 +50,37 @@ app.controller('MyCtrl',function ($scope, $http, $rootScope) {
        // console.log(document.getElementById('photo').getAttribute('src'));
     };
 
+    $scope.submit_new_user = function () {
 
-    $scope.test = function () {
-        var item = {
-            name: document.getElementById('name').value,
-            price: document.getElementById('price').value,
-            category: document.getElementById('category').value,
-            photo: document.querySelector('input[type=file]').files[0]
+        var fd = new FormData();
+
+        fd.append("username", document.getElementById("new_name").value);
+        fd.append("password", document.getElementById("new_password").value);
+
+        $http.post("/register_user", fd,{
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+            .success(function(data){
+                console.log(data);
+            })
+            .error(function(){
+            });
+
     };
 
-        console.log(item);
-    };
+
+
+    // $scope.test = function () {
+    //     var item = {
+    //         name: document.getElementById('name').value,
+    //         price: document.getElementById('price').value,
+    //         category: document.getElementById('category').value,
+    //         photo: document.querySelector('input[type=file]').files[0]
+    // };
+    //
+    //     console.log(item);
+    // };
 
     $scope.get_items = function () {
         $http.get("/items").success(function (data) {
